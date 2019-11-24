@@ -29,6 +29,7 @@ function onClickSubmitEquation(event) {
     };
 
     console.log('Submit Equation: ', equation);
+    postEquation(equation);
 }
 
 function onClickMathOp(event) {
@@ -51,7 +52,25 @@ function getHistory() {
     })
     .catch(function(err) {
         console.log('GET history error: ', err);
+        alert('There was an error loading the equation history.');
     });
+}
+
+function postEquation(equationObject) {
+    $.ajax({
+        method: 'POST',
+        url: '/api/equation',
+        data: equationObject,
+    })
+    .then(function(response) {
+        console.log('POST equation: ', response);
+        getHistory();
+    })
+    .catch(function(err) {
+        console.log('POST equation error: ', err);
+        alert('There was an error processing your equation.');
+    });
+
 }
 
 //
@@ -63,6 +82,10 @@ function render(history) {
     const $historyList = $('.js-history-list');
     const lastIndex = history.length - 1;
 
+    // EMPTY HTML CONTENT
+    $solution.empty()
+    $historyList.empty();
+    
     $solution.append(history[lastIndex].solution);
 
     for (let equData of history) {
