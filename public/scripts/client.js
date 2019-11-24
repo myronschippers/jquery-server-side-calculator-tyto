@@ -1,8 +1,11 @@
+let MATH_OPERATOR = null;
+
 $(document).ready(init);
 
 function init() {
     console.log('Document tots Ready!!!!');
     $('.js-btn-submit').on('click', onClickSubmitEquation);
+    $('.js-btn-mathOp').on('click', onClickMathOp);
 
     // get equation history
     getHistory();
@@ -22,9 +25,15 @@ function onClickSubmitEquation(event) {
     const equation = {
         mathNum1: num1,
         mathNum2: num2,
-    }
+        mathOperator: MATH_OPERATOR,
+    };
 
     console.log('Submit Equation: ', equation);
+}
+
+function onClickMathOp(event) {
+    MATH_OPERATOR = $(this).data('operator');
+    console.log('Click Operator: ', MATH_OPERATOR);
 }
 
 //
