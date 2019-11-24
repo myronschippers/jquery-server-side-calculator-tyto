@@ -41,6 +41,8 @@ function onClickMathOp(event) {
 function onClickClear(event) {
     $('.js-field-mathNum1').val('');
     $('.js-field-mathNum2').val('');
+
+    MATH_OPERATOR = null;
 }
 
 //
@@ -63,6 +65,10 @@ function getHistory() {
 }
 
 function postEquation(equationObject) {
+    if (equationObject.mathOperator == null) {
+        return false;
+    }
+
     $.ajax({
         method: 'POST',
         url: '/api/equation',
