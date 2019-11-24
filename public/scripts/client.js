@@ -6,6 +6,7 @@ function init() {
     console.log('Document tots Ready!!!!');
     $('.js-btn-submit').on('click', onClickSubmitEquation);
     $('.js-btn-mathOp').on('click', onClickMathOp);
+    $('.js-btn-clear').on('click', onClickClear);
 
     // get equation history
     getHistory();
@@ -35,6 +36,11 @@ function onClickSubmitEquation(event) {
 function onClickMathOp(event) {
     MATH_OPERATOR = $(this).data('operator');
     console.log('Click Operator: ', MATH_OPERATOR);
+}
+
+function onClickClear(event) {
+    $('.js-field-mathNum1').val('');
+    $('.js-field-mathNum2').val('');
 }
 
 //
@@ -85,7 +91,7 @@ function render(history) {
     // EMPTY HTML CONTENT
     $solution.empty()
     $historyList.empty();
-    
+
     $solution.append(history[lastIndex].solution);
 
     for (let equData of history) {
